@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<project>
+  <parent>
+    <artifactId>alien-pizza</artifactId>
+    <groupId>uk.org.alienscience</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>uk.org.alienscience</groupId>
+  <artifactId>alien-pizza-examples</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>Alien Pizza Examples</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>kilim</groupId>
+      <artifactId>kilim</artifactId>
+      <version>0.7.3_mosaic_dev-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+
+</project>
