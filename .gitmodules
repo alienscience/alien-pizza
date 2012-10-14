@@ -1,0 +1,3 @@
+[submodule "kilim"]
+	path = kilim
+	url = https://github.com/alienscience/kilim.git
