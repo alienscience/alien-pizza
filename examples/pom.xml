@@ -22,4 +22,42 @@
     </dependency>
   </dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>kilim-weave-main</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>java</executable>
+							<classpathScope>compile</classpathScope>
+							<arguments>
+								<argument>-classpath</argument>
+								<classpath />
+								<argument>kilim.tools.Weaver</argument>
+								<argument>-d</argument>
+								<argument>${project.build.outputDirectory}</argument>
+								<argument>${project.build.outputDirectory}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
