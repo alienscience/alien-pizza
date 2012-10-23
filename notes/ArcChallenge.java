@@ -1,7 +1,7 @@
 package uk.org.alienscience.alien_pizza.examples;
 
 /**
- * A JaxRS type example of the arc challenge
+ * An example of the arc challenge that uses annotations
  * The SessionLifetime interface keeps the object alive for the lifetime of a session
  */
 @Path("said")
@@ -18,18 +18,18 @@ public class ArcChallenge implements SessionLifetime {
 
     @GET
     public String inputPage() {
-        return html.form().input("answer").submit().over();
+	return form(input.name("answer").submit()).toString();
     }
 
     @POST
     public String input(@FormParam("answer") String answer) {
         what = answer;
-        return html.a("click here", "show").over();
+	return a("click here").href("said/show").toString();
     }
 
     @GET
     @Path("show")
     public String show() {
-        html.raw("you said:", what).over();
+	return p("you said: ", what).toString();
     }
 }
