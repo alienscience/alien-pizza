@@ -18,18 +18,18 @@ public class ArcChallenge implements SessionLifetime {
 
     @GET
     public String inputPage() {
-	return form(input.name("answer").submit()).toString();
+        return form(input.name("answer").submit()).toString();
     }
 
     @POST
     public String input(@FormParam("answer") String answer) {
         what = answer;
-	return a("click here").href("said/show").toString();
+        return a("click here").href("said/show").toString();
     }
 
     @GET
     @Path("show")
     public String show() {
-	return p("you said: ", what).toString();
+        return p("you said: ", what).toString();
     }
 }
