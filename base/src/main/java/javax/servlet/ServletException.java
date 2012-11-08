@@ -3,5 +3,5 @@ package javax.servlet;
 /**
  * TODO: document
  */
-public interface ServletResponse {
+public class ServletException extends Exception {
 }

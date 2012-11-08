@@ -1,9 +1,8 @@
 package javax.servlet.http;
 
-import javax.servlet.GenericServlet;
-import javax.servlet.Servlet;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import kilim.Pausable;
+
+import javax.servlet.*;
 import java.io.IOException;
 
 /**
@@ -26,7 +25,7 @@ public class HttpServlet extends GenericServlet implements Servlet {
     }
 
 
-    protected void doGet(HttpServletRequest req,HttpServletResponse res)  throws IOException {
+    protected void doGet(HttpServletRequest req,HttpServletResponse res) throws IOException, Pausable, ServletException {
         res.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 }

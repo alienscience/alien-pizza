@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 @WebServlet("/hello")
 public class HelloWorldServlet extends HttpServlet {
 
-    public HelloWorld() {
+    public HelloWorldServlet() {
         super();
     }
 
