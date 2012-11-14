@@ -3,5 +3,5 @@ package javax.servlet;
 /**
  * TODO: document
  */
-public class ServletRequest {
+public interface ServletRequest {
 }

@@ -1,5 +1,7 @@
 package uk.org.alienscience.alien_pizza.examples;
 
+import kilim.Pausable;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,8 @@ public class HelloWorldServlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Pausable {
         response.setContentType("text/html");
         PrintWriter printWriter  = response.getWriter();
         printWriter.println("<h1>Hello World!</h1>");

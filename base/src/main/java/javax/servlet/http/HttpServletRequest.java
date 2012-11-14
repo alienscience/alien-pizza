@@ -5,5 +5,6 @@ import javax.servlet.ServletRequest;
 /**
  * TODO: document
  */
-public class HttpServletRequest extends ServletRequest {
+public interface HttpServletRequest extends ServletRequest {
+    public String getMethod();
 }

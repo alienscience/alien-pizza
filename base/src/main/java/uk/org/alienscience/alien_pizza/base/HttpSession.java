@@ -1,13 +1,12 @@
 package uk.org.alienscience.alien_pizza.base;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import kilim.Pausable;
 import kilim.http.HttpRequest;
 import kilim.http.HttpResponse;
-import kilim.http.KeyValues;
+
+import javax.servlet.http.HttpServlet;
+import java.io.EOFException;
+import java.io.IOException;
 
 /**
  * kilm.http.HttpSession is an HTTPSession task, itself a thin wrapper over the socket connection. An instance of this
@@ -20,36 +19,32 @@ import kilim.http.KeyValues;
 
 public class HttpSession extends kilim.http.HttpSession {
 
+    public HttpSession() {
+        super();
+    }
+
     @Override
     public void execute() throws Pausable, Exception {
         try {
             // We will reuse the req and resp objects
             HttpRequest req = new HttpRequest();
             HttpResponse resp = new HttpResponse();
+            HttpServletRequest servletRequest = new HttpServletRequest(req);
+            HttpServletResponse servletResponse = new HttpServletResponse(resp, this);
+
             while (true) {
+                // Read the request
                 super.readRequest(req);
                 System.out.println("Received: " + req);
-                if (req.method.equals("GET") || req.method.equals("HEAD")) {
-                    resp.setContentType("text/html");
-                    PrintWriter pw = new PrintWriter(resp.getOutputStream());
-                    // Note that resp.getOutputStream() does not write to the socket; it merely buffers the entire
-                    // output.
-                    pw.append("<html><body>path = ");
-                    pw.append(req.uriPath).append("<p>");
-                    KeyValues kvs = req.getQueryComponents();
-                    for (int i = 0; i < kvs.count; i++) {
-                        pw.append(kvs.keys[i]).append(" = ").append(kvs.values[i]).append("<br>");
-                    }
-                    pw.append("</body></html>");
-                    pw.flush();
-                    sendResponse(resp);
-                } else {
-                    super.problem(resp, HttpResponse.ST_FORBIDDEN, "Only GET and HEAD accepted");
-                }
 
-                if (!req.keepAlive())
-                    break;
-                break;
+                // Get the servlet that will handle the request
+                HttpServlet servlet = ServletContainer.INSTANCE.getServlet(req.uriPath);
+
+                // Call the servlet
+                servlet.service(servletRequest, servletResponse);
+
+                // Keep the connection alive?
+                if (!req.keepAlive()) break;
             }
         } catch (EOFException e) {
             System.out.println("[" + this.id + "] Connection Terminated");
