@@ -7,12 +7,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Implementation of a {@link javax.servlet.http.HttpServletResponse}
+ * Implementation of a Response from a servlet
  */
-public class HttpServletResponse implements javax.servlet.http.HttpServletResponse {
+public class HttpServletResponse {
     private final HttpResponse response;
     private final HttpSession session;
     private boolean sent;
+
+    /**
+     * Status code (405) indicating that the method specified in the Request-Line is not allowed for the
+     * resource identified by the Request-URI.
+     */
+    public static final int SC_METHOD_NOT_ALLOWED = 405;
 
     public HttpServletResponse(HttpResponse response, HttpSession session) {
         this.response = response;
@@ -20,36 +26,38 @@ public class HttpServletResponse implements javax.servlet.http.HttpServletRespon
         this.sent = false;
     }
 
-    @Override
     public void sendError(int sc) throws IOException, IllegalStateException, Pausable {
         response.setStatus(String.valueOf(sc));
         response.setContentType("text/html");
-        sendResponse();
     }
 
-    @Override
     public void sendError(int sc, String msg) throws IOException, IllegalStateException, Pausable {
         response.setStatus(sc + " " + msg);
         response.setContentType("text/html");
-        sendResponse();
     }
 
-    @Override
     public void setContentType(String s) {
         response.setContentType("text/html");
     }
 
-    @Override
     public PrintWriter getWriter() {
         return new PrintWriter(response.getOutputStream());
     }
 
-    private void sendResponse() throws IOException, Pausable {
+    boolean hasSent() {
+        return sent;
+    }
+
+    void sendResponse() throws IOException, IllegalStateException, Pausable {
         if (sent) {
-            response.reuse();
             throw new IllegalStateException("HTTPServletResponse has already been sent");
         }
         session.sendResponse(response);
         sent = true;
+    }
+
+    void reuse() {
+        sent = false;
+        response.reuse();
     }
 }

@@ -1,4 +1,4 @@
-package javax.servlet.annotation;
+package uk.org.alienscience.alien_pizza.base.annotation;
 
 import java.lang.annotation.*;
 

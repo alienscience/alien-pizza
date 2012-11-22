@@ -6,7 +6,7 @@ import kilim.http.HttpRequest;
 /**
  * TODO: document
  */
-public class HttpServletRequest implements javax.servlet.http.HttpServletRequest {
+public class HttpServletRequest {
     private final HttpRequest request;
 
     public HttpServletRequest(HttpRequest request) {

@@ -4,7 +4,6 @@ import kilim.Pausable;
 import kilim.http.HttpRequest;
 import kilim.http.HttpResponse;
 
-import javax.servlet.http.HttpServlet;
 import java.io.EOFException;
 import java.io.IOException;
 
@@ -42,6 +41,10 @@ public class HttpSession extends kilim.http.HttpSession {
 
                 // Call the servlet
                 servlet.service(servletRequest, servletResponse);
+
+                // Send the response
+                if (!servletResponse.hasSent()) servletResponse.sendResponse();
+                servletResponse.reuse();
 
                 // Keep the connection alive?
                 if (!req.keepAlive()) break;
