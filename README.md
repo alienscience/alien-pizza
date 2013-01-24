@@ -3,7 +3,8 @@
 
 ## What is this?
 
-One day this will hopefully be HTTP applications with standard(ish) APIs using lightweight Kilm threads. The notes directory contains some pseudo code on what it might look like.
+One day this will hopefully be HTTP applications with non-standard APIs using lightweight Kilm threads.
+The notes directory contains some pseudo code on what it might look like.
 
 ## Compiling
 
